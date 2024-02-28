@@ -1,3 +1,27 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+@layer base{
+    input[type='text'],
+    input[type='password'],
+    input:where(:not([type])),
+    input[type='email'],
+    input[type='number'],
+    input[type='url'],
+    input[type='date'],
+    input[type='datetime-local'],
+    input[type='month'],
+    input[type='week'],
+    input[type='time'],
+    input[type='search'],
+    input[type='tel'],
+    input[type='checkbox'],
+    input[type='radio'],
+    select,
+    select[multiple],
+    textarea{
+        @apply block w-full border border-gray-300 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 rounded-lg  shadow-sm
+    }
+    }
