@@ -22,6 +22,6 @@
     select,
     select[multiple],
     textarea{
-        @apply block w-full border border-gray-300 focus:border-purple-500 focus:ring-1 focus:ring-purple-500 rounded-lg  shadow-sm
+        @apply block text-sm w-full border border-gray-500 focus:border-sky-500  h-8 rounded-md  shadow-sm
     }
     }

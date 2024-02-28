@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { FormContext } from ".";
 
-export const FormSubmit = () => {
+export const FormSubmit = ({name}) => {
   const { double } = useContext(FormContext);
   return (
     <div
@@ -10,12 +10,12 @@ export const FormSubmit = () => {
       }`}
     >
       <div
-        className={`w-full max-w-md col-start-1 ${
+        className={`w-full  max-w-lg lg:max-w-md col-start-1 ${
           double ? "md:col-start-2 flex  md:justify-end" : ""
         }`}
       >
         <button  className="px-3 py-1 bg-violet-600 hover:bg-violet-700  rounded-lg text-white" type="submit"  >
-          Submit
+          {name}
         </button>
       </div>
     </div>
