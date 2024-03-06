@@ -6,7 +6,7 @@ const Container = ({ children,options}) => {
       <div className="">
         <Breadcumb options={options} ></Breadcumb>
       </div>
-      <div className="max-w-[1250px] mx-auto">{children}</div>
+      <div className="max-w-[1250px]  mx-auto">{children}</div>
     </div>
   );
 };

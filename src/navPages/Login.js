@@ -35,7 +35,7 @@ const Login = () => {
     >
       <div className="bg-white mt-8">
         <div className="p-8">
-          <h1 className="text-xl font-semibold">Login</h1>
+          <h1 className="text-xl  font-semibold">Login</h1>
           <p className="mt-1 text-sm font-medium text-gray-700">
             Login your account with necessary information
           </p>
