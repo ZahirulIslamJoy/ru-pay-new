@@ -4,9 +4,11 @@ import { Form, FormSection, FormSubmit, Input } from "../components/form";
 import PasswordField from "../components/form/PasswordField";
 import { Select } from "../components/form/Select";
 import { useEffect, useState } from "react";
+import useAccountNo from "../components/hooks/useAccountNo";
 
 const Registration = () => {
   const [selectedType, setSelectedType] = useState("Student");
+  let {accountNo}=useAccountNo();
 
   const {
     register,
@@ -17,7 +19,20 @@ const Registration = () => {
 
   const onSubmit = (data) => {
     const id=data.studentId;
-    console.log(id);
+    const email=data.email;
+    const passsword=data.passsword;
+    const nid=data.nid;
+    if(nid){
+      data={accountNo,...data}
+      console.log(data)
+    }
+    if(id){
+      accountNo=id;
+      data={accountNo,...data}
+      console.log(data)
+    }
+
+    
   }
 
   useEffect(() => {
