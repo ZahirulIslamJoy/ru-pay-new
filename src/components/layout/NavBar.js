@@ -30,7 +30,7 @@ export const NavBar = () => {
 
   return (
     <span>
-      <nav className="flex items-center justify-between bg-[#393E46] px-4 py-2 text-white">
+      <nav className="flex items-center  justify-between bg-[#393E46] px-4 py-2 text-white">
         <div className="scale-100 cursor-pointer rounded-2xl px-3 py-2 text-md font-semibold text-white transition-all duration-200 hover:scale-110">
           <h2>Ru Pay</h2>
         </div>

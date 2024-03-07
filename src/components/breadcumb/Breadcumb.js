@@ -1,10 +1,10 @@
 import { BsFillGridFill } from "react-icons/bs";
 import { LiaGreaterThanSolid } from "react-icons/lia";
 import { Link } from "react-router-dom";
-const Breadcumb = ({ options }) => {
+const Breadcumb = ({ options , end }) => {
   const optionLenght = options.length;
   return (
-    <div className="bg-white h-[40px] px-5 md:px-12 gap-4 flex items-center">
+    <div className={`bg-white h-[40px] px-5 md:px-12 gap-4 flex items-center ${end ? "justify-end":""}`}>
       <div>
         <BsFillGridFill></BsFillGridFill>
       </div>
