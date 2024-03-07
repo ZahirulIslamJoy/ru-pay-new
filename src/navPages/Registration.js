@@ -5,10 +5,15 @@ import PasswordField from "../components/form/PasswordField";
 import { Select } from "../components/form/Select";
 import { useEffect, useState } from "react";
 import useAccountNo from "../components/hooks/useAccountNo";
+import { useContext } from "react";
+import { AuthContext } from "../providers/Authprovider";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Registration = () => {
   const [selectedType, setSelectedType] = useState("Student");
-  let {accountNo}=useAccountNo();
+  let { accountNo } = useAccountNo();
+  const { createUserWithEmailPass } = useContext(AuthContext);
 
   const {
     register,
@@ -18,27 +23,50 @@ const Registration = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    const id=data.studentId;
-    const email=data.email;
-    const passsword=data.passsword;
-    const nid=data.nid;
-    if(nid){
-      data={accountNo,...data}
-      console.log(data)
+    let userData = {};
+    const id = data.studentId;
+    const email = data.email;
+    const { password, confirmPassword, ...rest } = data;
+    const nid = data.nid;
+    if (nid) {
+      userData = { accountNo, ...rest };
     }
-    if(id){
-      accountNo=id;
-      data={accountNo,...data}
-      console.log(data)
+    if (id) {
+      accountNo = id;
+      userData = { accountNo, ...rest };
     }
-
-    
-  }
+    createUserWithEmailPass(email, password)
+      .then((result) => {
+        try {
+          fetch(`http://localhost:7000/users`, {
+            method: "PUT",
+            headers: {
+              "content-type": "application/json",
+            },
+            body: JSON.stringify(userData),
+          })
+            .then((res) => res.json())
+            .then((data) => {
+              if (data.upsertedCount > 0) {
+                toast.success("Your account created successfully", {
+                  pauseOnHover: false,
+                });
+                console.log("ok")
+              }
+            });
+        } catch (error) {
+          console.error("Error:", error.response.data);
+        }
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        console.log(errorMessage);
+      });
+  };
 
   useEffect(() => {
     setSelectedType(watch("type"));
   }, [watch("type")]);
-
 
   return (
     <Container
@@ -56,7 +84,7 @@ const Registration = () => {
           <div className="border border-gray-200 mt-1 shadow-md"></div>
         </div>
         <div className="pb-20">
-          <Form  onSubmit={handleSubmit(onSubmit)}  double={true}>
+          <Form onSubmit={handleSubmit(onSubmit)} double={true}>
             <FormSection>
               <Select
                 label="Account Type"
