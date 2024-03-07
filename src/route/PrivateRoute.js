@@ -1,10 +1,11 @@
 import React, { useContext } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { RiseLoader } from "react-spinners";
 import { AuthContext } from "../providers/Authprovider";
 
 const PrivateRoute = ({ children }) => {
   const { user, loading } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   if (loading) {
     return (
@@ -17,7 +18,9 @@ const PrivateRoute = ({ children }) => {
   if (user) {
     return children;
   } else {
-    return <Navigate to="/login" replace state={location.pathname}></Navigate>;
+    navigate("/login");
+    // Return null or loading indicator until navigation completes
+    return null;
   }
 };
 

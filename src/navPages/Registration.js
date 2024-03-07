@@ -25,15 +25,16 @@ const Registration = () => {
   const onSubmit = (data) => {
     let userData = {};
     const id = data.studentId;
+    const balance=0;
     const email = data.email;
     const { password, confirmPassword, ...rest } = data;
     const nid = data.nid;
     if (nid) {
-      userData = { accountNo, ...rest };
+      userData = { accountNo,balance, ...rest };
     }
     if (id) {
       accountNo = id;
-      userData = { accountNo, ...rest };
+      userData = { accountNo, balance, ...rest };
     }
     createUserWithEmailPass(email, password)
       .then((result) => {

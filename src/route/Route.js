@@ -3,6 +3,9 @@ import Main from "../main/Main";
 import Login from "../navPages/Login";
 import Registration from "../navPages/Registration";
 import Dashboard from "../components/layout/dashboard/Dashboard";
+import Profile from "../components/layout/dashboard/users/Profile";
+import PrivateRoute from "./PrivateRoute";
+import Sendmoney from "../components/layout/dashboard/users/Sendmoney";
 
 const router = createBrowserRouter([
     {
@@ -19,7 +22,17 @@ const router = createBrowserRouter([
         },
         {
           path: "/dashboard",
-          element:<Dashboard></Dashboard>
+          element:<PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
+          children:[
+            {
+              path:"profile",
+              element:<Profile></Profile>
+            },
+            {
+              path:"sendmoney",
+              element:<Sendmoney></Sendmoney>
+            }
+          ]
       },
       ],
     },
