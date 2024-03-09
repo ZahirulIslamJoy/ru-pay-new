@@ -7,7 +7,7 @@ const Breadcumb = ({ options, end }) => {
     <>
       {options && (
         <div
-          className={`bg-neutral-300 ${
+          className={`bg-neutral-200 ${
             options ? "h-[40px]" : ""
           } px-5 md:px-12 gap-4 flex items-center ${end ? "justify-end" : ""}`}
         >

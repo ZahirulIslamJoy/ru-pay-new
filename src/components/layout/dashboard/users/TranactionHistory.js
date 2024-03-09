@@ -29,7 +29,7 @@ const TranactionHistory = () => {
       end={true}
     >
       <div className="flex justify-center mt-16">
-        <table class="shadow-lg bg-gray-200 border-collapse">
+        <table class="shadow-lg bg-neutral-100 border-collapse">
           <tr>
             <th class="bg-gray-300 border text-left px-8 py-4">
               Transaction Id
@@ -56,7 +56,7 @@ const TranactionHistory = () => {
                   ? item.type.split("-")[0] + "(" + item.receiverAccountNo + ")"
                   : item.type.split("-")[1] +
                     "(" +
-                    item.receiverAccountNo +
+                    item.sendingUserAccountNo +
                     ")"}
               </td>
               <td class="border px-8 py-4">

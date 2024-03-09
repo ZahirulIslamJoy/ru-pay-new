@@ -29,7 +29,7 @@ const AddMoney = () => {
     const addMoneyInfo = {
       sendingUserName: currentUser?.name,
       sendingUserEmail: currentUser?.email,
-      sendingUserAccountNo: null,
+      sendingUserAccountNo: 1020304050,
       receiverAccountNo: currentUser?.accountNo,
       cardNo: cardNo,
       sendingMoney: "",
@@ -68,7 +68,7 @@ const AddMoney = () => {
           ]}
           end={true}
         >
-          <div className="bg-neutral-200 mt-8">
+          <div className="bg-neutral-100 mt-8">
             <div className="p-8">
               <h1 className="text-xl  font-semibold">Add Money</h1>
               <p className="mt-1 text-sm font-medium text-gray-700">

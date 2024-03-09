@@ -2,7 +2,7 @@ import Breadcumb from "../breadcumb/Breadcumb";
 
 const Container = ({ children,options,end}) => {
   return (
-    <div className="bg-neutral-300 min-h-screen">
+    <div className="bg-neutral-200 min-h-screen">
       <div className="">
         <Breadcumb options={options} end={end} ></Breadcumb>
       </div>
