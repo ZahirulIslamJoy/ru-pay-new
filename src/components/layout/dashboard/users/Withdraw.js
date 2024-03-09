@@ -46,7 +46,7 @@ const Withdraw = () => {
       receiverAccountNo: adminAccountNo,
       sendingMoney: withdrawAmount,
       time: currentBDT,
-      type: "withdraw",
+      type: "Withdraw-Received Money",
     };
 
     axiosSecure.post(`/sendmoney`, withdrawInfo).then((res) => {

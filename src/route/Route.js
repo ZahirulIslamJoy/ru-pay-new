@@ -8,6 +8,7 @@ import PrivateRoute from "./PrivateRoute";
 import Sendmoney from "../components/layout/dashboard/users/Sendmoney";
 import Withdraw from "../components/layout/dashboard/users/Withdraw";
 import AddMoney from "../components/layout/dashboard/AddMoney";
+import TranactionHistory from "../components/layout/dashboard/users/TranactionHistory";
 
 const router = createBrowserRouter([
     {
@@ -41,6 +42,10 @@ const router = createBrowserRouter([
             {
               path:"addmoney",
               element:<AddMoney></AddMoney>
+            },
+            {
+              path:"history",
+              element:<TranactionHistory></TranactionHistory>
             }
           ]
       },

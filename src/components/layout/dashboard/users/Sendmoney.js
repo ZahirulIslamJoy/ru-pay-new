@@ -53,7 +53,7 @@ const Sendmoney = () => {
       receiverAccountNo: receiverAccount,
       sendingMoney: sendingMoney,
       time: currentBDT,
-      type: "sendMoney",
+      type: "Send Money-Received Money",
     };
     axiosSecure.post(`/sendmoney`, sendMoneyInfo).then((res) => {
       setLoading(false);

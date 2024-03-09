@@ -21,7 +21,7 @@ const AddMoney = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    //setLoading(true);
+    setLoading(true);
     const cardNo = data.cardNo;
     const currentBDT = new Date(
       new Date().toLocaleString("en-US", { timeZone: "Asia/Dhaka" })
@@ -29,15 +29,14 @@ const AddMoney = () => {
     const addMoneyInfo = {
       sendingUserName: currentUser?.name,
       sendingUserEmail: currentUser?.email,
-      sendingUserAccountNo: currentUser?.accountNo,
+      sendingUserAccountNo: null,
       receiverAccountNo: currentUser?.accountNo,
       cardNo: cardNo,
       sendingMoney: "",
       time: currentBDT,
-      type: "addMoney",
+      type: "Add Money-Add Money",
     };
     axiosSecure.post(`/addMoney`, addMoneyInfo).then((res) => {
-    console.log("h1")
       console.log(res.data);
       if (
         res.data?.deletedResult?.deletedCount> 0 &&
