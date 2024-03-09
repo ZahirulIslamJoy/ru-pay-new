@@ -21,19 +21,41 @@ const AddMoney = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    setLoading(true);
+    //setLoading(true);
+    const cardNo = data.cardNo;
     const currentBDT = new Date(
       new Date().toLocaleString("en-US", { timeZone: "Asia/Dhaka" })
     );
-    const addMonryInfo = {
-        sendingUserName: currentUser?.name,
-        sendingUserEmail: currentUser?.email,
-        sendingUserAccountNo: currentUser?.accountNo,
-        receiverAccountNo:sendingUserAccountNo,
-        sendingMoney:"",
-        time: currentBDT,
-        type: "addMoney",
-      };
+    const addMoneyInfo = {
+      sendingUserName: currentUser?.name,
+      sendingUserEmail: currentUser?.email,
+      sendingUserAccountNo: currentUser?.accountNo,
+      receiverAccountNo: currentUser?.accountNo,
+      cardNo: cardNo,
+      sendingMoney: "",
+      time: currentBDT,
+      type: "addMoney",
+    };
+    axiosSecure.post(`/addMoney`, addMoneyInfo).then((res) => {
+    console.log("h1")
+      console.log(res.data);
+      if (
+        res.data?.deletedResult?.deletedCount> 0 &&
+        res.data?.modifiedBalanceResult?.modifiedCount > 0 &&
+        res.data?.paymentResult?.insertedId
+      ) {
+        setLoading(false);
+        reset();
+        return toast.success("Money Added Successfully", {
+          pauseOnHover: false,
+        });
+      } else {
+        setLoading(false);
+        return toast.error(`${res.data.status}`, {
+          pauseOnHover: false,
+        });
+      }
+    });
   };
   return (
     <>
