@@ -68,7 +68,7 @@ const AddMoney = () => {
           ]}
           end={true}
         >
-          <div className="bg-neutral-100 mt-8">
+          <div className="bg-white mt-8">
             <div className="p-8">
               <h1 className="text-xl  font-semibold">Add Money</h1>
               <p className="mt-1 text-sm font-medium text-gray-700">

@@ -29,7 +29,7 @@ const TranactionHistory = () => {
       end={true}
     >
       <div className="flex justify-center mt-16">
-        <table class="shadow-lg bg-neutral-100 border-collapse">
+        <table class="shadow-lg bg-white border-collapse">
           <tr>
             <th class="bg-gray-300 border text-left px-8 py-4">
               Transaction Id

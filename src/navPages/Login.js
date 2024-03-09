@@ -4,6 +4,8 @@ import { useForm } from "react-hook-form";
 import PasswordField from "../components/form/PasswordField";
 import { useContext } from "react";
 import { AuthContext } from "../providers/Authprovider";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const {
@@ -12,13 +14,17 @@ const Login = () => {
     formState: { errors },
   } = useForm();
   const {signInWithEP}=useContext(AuthContext)
+  const navigate=useNavigate();
 
   const onSubmit = (data) => {
     const email=data.email;
     const password=data.password;
     signInWithEP(email,password)
     .then((user)=>{
-        alert("Login is completed")
+      navigate("/")
+      return toast.success("Login is successfull", {
+        pauseOnHover: false,
+      });
     })
     .catch((error) => {
         const errorMessage = error.message;

@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { BiUser } from "react-icons/bi";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../providers/Authprovider";
+import { toast } from "react-toastify";
 
 export const NavBar = () => {
   const [dropDownState, setDropDownState] = useState(false);
@@ -11,6 +12,9 @@ export const NavBar = () => {
   const { user, handleSignOut } = useContext(AuthContext);
 
   const handleSignOuts = () => {
+     toast.success("Logout is successfull", {
+      pauseOnHover: false,
+    });
     return handleSignOut();
   };
 

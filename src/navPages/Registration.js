@@ -9,11 +9,13 @@ import { useContext } from "react";
 import { AuthContext } from "../providers/Authprovider";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
 
 const Registration = () => {
   const [selectedType, setSelectedType] = useState("Student");
   let { accountNo } = useAccountNo();
   const { createUserWithEmailPass } = useContext(AuthContext);
+  const navigate=useNavigate();
 
   const {
     register,
@@ -49,6 +51,7 @@ const Registration = () => {
             .then((res) => res.json())
             .then((data) => {
               if (data.upsertedCount > 0) {
+                navigate("/")
                 toast.success("Your account created successfully", {
                   pauseOnHover: false,
                 });
