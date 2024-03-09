@@ -1,17 +1,17 @@
+import React, { useState } from "react";
+import Loader from "../../../loader/Loader";
 import { useForm } from "react-hook-form";
+import { FormSection, Form, FormSubmit, Input } from "../../../form";
 import Container from "../../../container/Container";
-import { Form, FormSection, FormSubmit, Input } from "../../../form";
 import { useAccountDetails } from "../../../hooks/useAccountDetails";
 import useAxiosWithToken from "../../../hooks/useAxiosWithToken";
-import { useState } from "react";
-import Loader from "../../../loader/Loader";
 import { toast } from "react-toastify";
 
-const Sendmoney = () => {
+const Withdraw = () => {
   const [loading, setLoading] = useState(false);
   const [currentUserInfo] = useAccountDetails();
-  const currentUser = currentUserInfo?.[0];
   const [axiosSecure] = useAxiosWithToken();
+  const currentUser = currentUserInfo?.[0];
 
   const {
     register,
@@ -21,41 +21,35 @@ const Sendmoney = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    const receiverAccount = data.accountNo;
-    const sendingMoney = parseInt(data.amount);
-    setLoading(true);
+    setLoading(true)
+    const withdrawAmount = parseInt(data.amount);
+    if (withdrawAmount > currentUser?.balance) {
+      setLoading(false);
+      return toast.warning("Insufficient Fund", {
+        pauseOnHover: false,
+      });
+    }
+    if (withdrawAmount < 5) {
+      setLoading(false);
+      return toast.warning("Minimum transaction is 5 tk", {
+        pauseOnHover: false,
+      });
+    }
+    const adminAccountNo = 1020304050;
     const currentBDT = new Date(
       new Date().toLocaleString("en-US", { timeZone: "Asia/Dhaka" })
     );
-    if (sendingMoney > currentUser?.balance) {
-      setLoading(false);
-      return toast.warning("Insufficient Fund",{
-        pauseOnHover: false,
-      });
-    }
-    if(sendingMoney <5){
-      setLoading(false);
-      return toast.warning("Minimum transaction is 5 tk",{
-        pauseOnHover: false,
-      });
-    }
-    if (currentUser?.accountNo == receiverAccount) {
-      setLoading(false);
-      return toast.warning("Please Select Another Account",{
-        pauseOnHover: false,
-      });
-    }
-
-    const sendMoneyInfo = {
+    const withdrawInfo = {
       sendingUserName: currentUser?.name,
       sendingUserEmail: currentUser?.email,
       sendingUserAccountNo: currentUser?.accountNo,
-      receiverAccountNo: receiverAccount,
-      sendingMoney: sendingMoney,
+      receiverAccountNo: adminAccountNo,
+      sendingMoney: withdrawAmount,
       time: currentBDT,
-      type: "sendMoney",
+      type: "withdraw",
     };
-    axiosSecure.post(`/sendmoney`, sendMoneyInfo).then((res) => {
+
+    axiosSecure.post(`/sendmoney`, withdrawInfo).then((res) => {
       setLoading(false);
       console.log(res.data);
       if (
@@ -63,14 +57,14 @@ const Sendmoney = () => {
         res.data.modifiedSenderBalanceResult.modifiedCount > 0 &&
         res.data.paymentResult.insertedId
       ) {
-        setLoading(false)
-        reset()
-       return toast.success("Send Money is Successfull", {
+        setLoading(false);
+        reset();
+        return toast.success("Withdraw  is Successfull", {
           pauseOnHover: false,
         });
       } else {
-        setLoading(false)
-       return toast.error("Something Went Wrong", {
+        setLoading(false);
+        return toast.error("Something Went Wrong", {
           pauseOnHover: false,
         });
       }
@@ -85,15 +79,15 @@ const Sendmoney = () => {
         <Container
           options={[
             { name: "Dashboard", path: "/dashboard/profile" },
-            { name: "Send Money", path: "/dashboard/sendmoney" },
+            { name: "Withdraw", path: "/dashboard/withdraw" },
           ]}
           end={true}
         >
           <div className="bg-neutral-200 mt-8">
             <div className="p-8">
-              <h1 className="text-xl  font-semibold">Send Money</h1>
+              <h1 className="text-xl  font-semibold">Withdraw</h1>
               <p className="mt-1 text-sm font-medium text-gray-700">
-                Send Money From One Account To Another Account
+                Withdraw Money From Your Account
               </p>
               <div className="border border-gray-200 mt-1 shadow-md"></div>
             </div>
@@ -102,18 +96,12 @@ const Sendmoney = () => {
                 <FormSection>
                   <Input
                     type="tel"
-                    label="Account No*"
-                    errors={{}}
-                    register={{ ...register("accountNo") }}
-                  ></Input>
-                  <Input
-                    type="tel"
                     label="Amount*"
                     errors={{}}
                     register={{ ...register("amount") }}
                   ></Input>
                 </FormSection>
-                <FormSubmit name="Send"></FormSubmit>
+                <FormSubmit name="Withdraw"></FormSubmit>
               </Form>
             </div>
           </div>
@@ -123,4 +111,4 @@ const Sendmoney = () => {
   );
 };
 
-export default Sendmoney;
+export default Withdraw;
